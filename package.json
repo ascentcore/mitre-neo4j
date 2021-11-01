@@ -4,12 +4,17 @@
   "description": "This project is a graph database proof of concept using neo4j and mitre. Mitre is complex enough to test out everything we need.",
   "main": "index.js",
   "scripts": {
-    "populate": "tsc && node dist/index.js"
+    "populate": "tsc && node dist/index.js populate"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/yargs": "^17.0.5",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "neo4j-driver": "^4.3.4",
+    "yargs": "^17.2.1"
   }
 }
