@@ -1,0 +1,15 @@
+{
+  "name": "neo4j-mitre",
+  "version": "1.0.0",
+  "description": "This project is a graph database proof of concept using neo4j and mitre. Mitre is complex enough to test out everything we need.",
+  "main": "index.js",
+  "scripts": {
+    "populate": "tsc && node dist/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  }
+}
