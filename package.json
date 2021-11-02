@@ -9,9 +9,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^16.11.6",
     "@types/yargs": "^17.0.5",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.3"
+    "typescript": "^3.9.9"
   },
   "dependencies": {
     "neo4j-driver": "^4.3.4",
