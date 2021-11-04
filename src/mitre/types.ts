@@ -28,7 +28,16 @@ export type Stage = {
   phase_name: string;
 };
 
-export type ItemType = 'relationship' | 'attack-pattern' | 'x-mitre-tactic' | 'tool' | 'malware' | 'course-of-action';
+export type ItemType = 'relationship' | 
+  'attack-pattern' | 
+  'x-mitre-tactic' | 
+  'tool' |
+  'malware' | 
+  'course-of-action' | 
+  'x-mitre-data-source' |
+  'x-mitre-data-component' |
+  'identity' |
+  'intrusion-set';
 
 export type Platform = 'Linux' | 'maxOS' | 'Windows';
 

@@ -38,6 +38,30 @@ export default class Mitre {
       return this.data.objects.filter(obj => obj.type === 'course-of-action')
     }
 
+    public get tools(): MitreItem[] {
+      return this.data.objects.filter(obj => obj.type === 'tool')
+    }
+
+    public get dataSources(): MitreItem[] {
+      return this.data.objects.filter(obj => obj.type === 'x-mitre-data-source')
+    }
+
+    public get dataComponents(): MitreItem[] {
+      return this.data.objects.filter(obj => obj.type === 'x-mitre-data-component')
+    }
+
+    public get identities(): MitreItem[] {
+      return this.data.objects.filter(obj => obj.type === 'identity')
+    }
+
+    public get intrusionSets(): MitreItem[] {
+      return this.data.objects.filter(obj => obj.type === 'intrusion-set')
+    }
+
+    public get malwares(): MitreItem[] {
+      return this.data.objects.filter(obj => obj.type === 'malware')
+    }
+
     // TODO: Implement this in the end
     public get relationships(): MitreItem[] {
       return this.data.objects.filter(obj => obj.type === 'relationship')
