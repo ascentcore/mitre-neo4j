@@ -19,12 +19,19 @@ export default class Neo4jQuerier {
     }
   }
 
-  async runQuery(query: Query): Promise<any> {
+  async runQuery(query: Query): Promise<neo4j.Result> {
     const session = this.driver.session();
     console.log(`Running query ${query.query}`);
     const result = await session.readTransaction(tx => query.run(tx));
-    console.log(result.records);
     await session.close();
+    return result;
+  }
+
+  async runAndPrettyPrintQuery(query: Query): Promise<void> {
+    const result = await this.runQuery(query)
+    for (const record of result.records) {
+      console.log(record)
+    }
   }
 
   async disconnect(): Promise<void> {

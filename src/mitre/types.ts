@@ -17,6 +17,7 @@ export type MitreItem = {
   x_mitre_deprecated: boolean;
   x_mitre_network_requirements: boolean;
   x_mitre_detection: string;
+  x_mitre_contributors: string[];
   x_mitre_platforms: Platform[];
   x_mitre_data_sources: string[];
   kill_chain_phases: Stage[];

@@ -1,5 +1,5 @@
 import * as yargs from 'yargs';
-import Neo4jPopulater from './neo4js/populater';
+import Neo4jPopulater from './neo4js/populator';
 import AllMitigationsByCourseOfActionReturningPlatformsQuery from './neo4js/query/allMitigationsByCourseOfActionReturningPlatforms';
 import AllMitigationsOfAttackPatternQuery from './neo4js/query/allMitigationsOfAttackPattern';
 import AllRelationsOfAttackPatternQuery from './neo4js/query/allRelationsOfAttackPattern';
@@ -18,10 +18,10 @@ async function query() {
   console.log('Running queries ...');
   const querier = new Neo4jQuerier();
   await querier.connect()
-  await querier.runQuery(new AllRelationsOfAttackPatternQuery('AS-REP Roasting'));
-  await querier.runQuery(new AllMitigationsOfAttackPatternQuery('AS-REP Roasting'));
-  await querier.runQuery(new AllMitigationsByCourseOfActionQuery('AS-REP Roasting'));
-  await querier.runQuery(new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'));
+  await querier.runAndPrettyPrintQuery(new AllRelationsOfAttackPatternQuery('AS-REP Roasting'));
+  await querier.runAndPrettyPrintQuery(new AllMitigationsOfAttackPatternQuery('AS-REP Roasting'));
+  await querier.runAndPrettyPrintQuery(new AllMitigationsByCourseOfActionQuery('AS-REP Roasting'));
+  await querier.runAndPrettyPrintQuery(new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'));
   await querier.disconnect();
 }
 
