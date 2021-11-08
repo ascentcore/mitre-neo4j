@@ -4,7 +4,17 @@ import AllMitigationsByCourseOfActionReturningPlatformsQuery from './neo4js/quer
 import AllMitigationsOfAttackPatternQuery from './neo4js/query/allMitigationsOfAttackPattern';
 import AllRelationsOfAttackPatternQuery from './neo4js/query/allRelationsOfAttackPattern';
 import AllMitigationsByCourseOfActionQuery from './neo4js/query/attMitigationsByCourseOfAction';
+import Query from './neo4js/query/query';
 import Neo4jQuerier from './neo4js/queryer';
+
+function queries(): Query[] {
+  return [
+    new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'),
+    new AllMitigationsOfAttackPatternQuery('AS-REP Roasting'),
+    new AllRelationsOfAttackPatternQuery('AS-REP Roasting'),
+    new AllMitigationsByCourseOfActionQuery('Audit'),
+  ]
+}
 
 async function populate() {
   console.log('Populating database with mitre data...');
@@ -16,13 +26,14 @@ async function populate() {
 
 async function query() {
   console.log('Running queries ...');
-  const querier = new Neo4jQuerier();
-  await querier.connect()
-  await querier.runAndPrettyPrintQuery(new AllRelationsOfAttackPatternQuery('AS-REP Roasting'));
-  await querier.runAndPrettyPrintQuery(new AllMitigationsOfAttackPatternQuery('AS-REP Roasting'));
-  await querier.runAndPrettyPrintQuery(new AllMitigationsByCourseOfActionQuery('AS-REP Roasting'));
-  await querier.runAndPrettyPrintQuery(new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'));
-  await querier.disconnect();
+  const querier = new Neo4jQuerier(queries());
+  await querier.run();
+}
+
+function dryRun() {
+  console.log('Running dry run ...');
+  const querier = new Neo4jQuerier(queries());
+  querier.dryRun();
 }
 
 yargs.command(
@@ -35,5 +46,10 @@ yargs.command(
   'Run sample queries',
   () => null,
   () => query(),
+).command(
+  'dryRun',
+  'Dry run quieries',
+  () => null,
+  () => dryRun(),
 )
 .demandCommand().argv;

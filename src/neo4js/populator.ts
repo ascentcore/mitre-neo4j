@@ -16,6 +16,7 @@ import PlatformRelationPopulator from './populators/relations/platformRelationPo
 import ContributorsRelationPopulator from './populators/relations/contributorsRelationPopulator';
 import RelationshipsPopulator from './populators/relations/relationshipsPopulator';
 
+// TODO: Clean up console.logs
 // TODO: Attack Pattern has permissions, add that
 // TODO: Attack Pattern has Data Sources
 export default class Neo4jPopulater {
