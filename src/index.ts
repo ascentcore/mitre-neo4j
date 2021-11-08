@@ -5,6 +5,7 @@ import AllMitigationsOfAttackPatternQuery from './neo4js/query/allMitigationsOfA
 import AllRelationsOfAttackPatternQuery from './neo4js/query/allRelationsOfAttackPattern';
 import AllMitigationsByCourseOfActionQuery from './neo4js/query/attMitigationsByCourseOfAction';
 import Query from './neo4js/query/query';
+import TopContributors from './neo4js/query/topContributors';
 import Neo4jQuerier from './neo4js/queryer';
 
 function queries(): Query[] {
@@ -13,6 +14,7 @@ function queries(): Query[] {
     new AllMitigationsOfAttackPatternQuery('AS-REP Roasting'),
     new AllRelationsOfAttackPatternQuery('AS-REP Roasting'),
     new AllMitigationsByCourseOfActionQuery('Audit'),
+    new TopContributors(3),
   ]
 }
 
