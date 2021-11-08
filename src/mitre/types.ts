@@ -15,7 +15,8 @@ export type MitreItem = {
   revoked: boolean;
   x_mitre_is_subtechnique: boolean;
   x_mitre_deprecated: boolean;
-  x_mitre_network_requirements: boolean;
+  x_mitre_network_requirements: boolean
+  x_mitre_permissions_required: string[];
   x_mitre_detection: string;
   x_mitre_contributors: string[];
   x_mitre_platforms: Platform[];

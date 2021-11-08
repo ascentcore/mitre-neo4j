@@ -21,6 +21,10 @@ export default class Mitre {
       return [...new Set(this.data.objects.map(obj => obj.x_mitre_contributors).flat().sort())].filter(v => v !== undefined)
     }
 
+    public get permissions(): string[] {
+      return [...new Set(this.data.objects.map(obj => obj.x_mitre_permissions_required).flat().sort())].filter(v => v !== undefined)
+    }
+
     public get techniques(): MitreItem[] {
       return this.data.objects.filter(obj => obj.type === 'x-mitre-tactic')
     }
@@ -57,7 +61,6 @@ export default class Mitre {
       return this.data.objects.filter(obj => obj.type === 'malware')
     }
 
-    // TODO: Implement this in the end
     public get relationships(): MitreItem[] {
       return this.data.objects.filter(obj => obj.type === 'relationship')
     }
@@ -86,6 +89,15 @@ export default class Mitre {
           return undefined;
         }
         return item.x_mitre_contributors.map(contributor => ({ contributor, itemId: item.id }));
+      }).flat().filter(x => x !== undefined);
+    }
+
+    public get permissionRelations(): { permission: string, itemId: string }[] {
+      return this.data.objects.map(item => {
+        if (!item.x_mitre_permissions_required) {
+          return undefined;
+        }
+        return item.x_mitre_permissions_required.map(permission => ({ permission, itemId: item.id }));
       }).flat().filter(x => x !== undefined);
     }
 }

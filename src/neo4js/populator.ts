@@ -15,9 +15,9 @@ import ToolsPopulator from './populators/node/toolsPopulator';
 import PlatformRelationPopulator from './populators/relations/platformRelationPopulator';
 import ContributorsRelationPopulator from './populators/relations/contributorsRelationPopulator';
 import RelationshipsPopulator from './populators/relations/relationshipsPopulator';
+import PermissionPoplator from './populators/node/permissionPopulator';
+import PermissionRelationPopulator from './populators/relations/permissionRelationPopulator';
 
-// TODO: Clean up console.logs
-// TODO: Attack Pattern has permissions, add that
 // TODO: Attack Pattern has Data Sources
 export default class Neo4jPopulater {
   private uri: string;
@@ -44,6 +44,9 @@ export default class Neo4jPopulater {
       new ContributorsPopulator(mitre.contributors),
       new ContributorsRelationPopulator(mitre.contributorRelations.map(cr => ({ source: cr.contributor, destination: cr.itemId }))),
 
+      new PermissionPoplator(mitre.permissions),
+      new PermissionRelationPopulator(mitre.permissionRelations.map(pr => ({ source: pr.itemId, destination: pr.permission }))),
+
       new RelationshipsPopulator(mitre.relationships),
     ]
   }
@@ -67,29 +70,4 @@ export default class Neo4jPopulater {
   async disconnect(): Promise<void> {
     return this.driver.close()
   }
-
-  // TODO: External reference is not working out properly
-  // private addExternalReference(tx: neo4j.Transaction, reference: ExternalReference): neo4j.Result {
-  //   console.log(`Creating external reference ${reference.url}`)
-  //   return tx.run(
-  //     "CREATE (r:ExternalReference {id: $id, name: $name, description: $description, url: $url})",
-  //     {
-  //       id: reference.external_id || reference.source_name,
-  //       name: reference.source_name,
-  //       description: reference.description || '',
-  //       url: reference.url || '',
-  //     }
-  //   )
-  // }
-
-  // private async addExternalReferenceRelation(tx: neo4j.Transaction, itemId: string, refName: string): Promise<any> {
-  //   console.log(`Create relation ${itemId}->${refName}`)
-  //   const r = await tx.run(
-  //     `MATCH (a),(b:ExternalReference) where a.id = '${itemId}' and b.name = "${refName}" CREATE (a)-[r:EXTERNAL_REF]->(b) return r`
-  //   )
-  //   if (r.summary.counters.updates().relationshipsCreated !== 1) {
-  //     console.error('Relationship not created!')
-  //   }
-  //   return r
-  // }
 }
