@@ -41,5 +41,5 @@ Happy hacking :)
 
 ## Sample Queries
 
-To run the sample queries, run `npm run query:dry`. This will print all the queries to the console.
+To get a list of the sample queries, run `npm run query:dry`. This will print all the queries to the console.
 You can then copy them into the UI to visually see the results.
