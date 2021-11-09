@@ -58,10 +58,10 @@ function populators(): EntryPopulator<any>[] {
 
 function queries(): Query[] {
   return [
-    new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'),
     new AllMitigationsOfAttackPatternQuery('AS-REP Roasting'),
     new AllRelationsOfAttackPatternQuery('AS-REP Roasting'),
     new AllMitigationsByCourseOfActionQuery('Audit'),
+    new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'),
     new TopContributors(3),
     new AllRelatedToAttackPattern('Scripting'),
     new AllRelatedToAttackPattern('Scheduled Task'),

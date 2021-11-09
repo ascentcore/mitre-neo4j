@@ -8,7 +8,6 @@ export default class AllMitigationsByCourseOfActionReturningPlatformsQuery exten
     this.courseOfAction = courseOfAction;
   }
 
-  // Audit
   get query(): string {
     return `MATCH (b:CourseOfAction)-[r:MITIGATES]-(a)-[r2:ON_PLATFORM]-(p:Platform) where b.name = '${this.courseOfAction}' return a,r,b,r2,p`;
   }
