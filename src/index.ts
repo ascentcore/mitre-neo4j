@@ -28,6 +28,11 @@ import ContributorsRelationPopulator from './neo4j/populators/relations/contribu
 import RelationshipsPopulator from './neo4j/populators/relations/relationshipsPopulator';
 import PermissionPoplator from './neo4j/populators/node/permissionPopulator';
 import PermissionRelationPopulator from './neo4j/populators/relations/permissionRelationPopulator';
+import TechniqueOrderPopulator from './neo4j/populators/relations/techniqueOrderPopulator';
+import TechniqueAttackPatternRelationPopulator from './neo4j/populators/relations/techniqueAttackPatternRelationPopulator';
+import AllMalwareUsedForTechnique from './neo4j/query/allMalwareUsedForTechinque';
+import ShortestPath from './neo4j/query/shortestPath';
+import AllPaths from './neo4j/query/allPaths';
 
 function populators(): EntryPopulator<any>[] {
   const mitre = new Mitre();
@@ -52,6 +57,9 @@ function populators(): EntryPopulator<any>[] {
     new PermissionPoplator(mitre.permissions),
     new PermissionRelationPopulator(mitre.permissionRelations.map(pr => ({ source: pr.itemId, destination: pr.permission }))),
 
+    new TechniqueOrderPopulator(mitre.matrixRelations.map(mr => ({ source: mr.srcTactic, destination: mr.destTactic }))),
+    new TechniqueAttackPatternRelationPopulator(mitre.techinqueAttackPatternRelations.map(tpr => ({ source: tpr.attackPattern, destination: tpr.techniqueShortName }))),
+
     new RelationshipsPopulator(mitre.relationships),
   ]
 }
@@ -69,6 +77,13 @@ function queries(): Query[] {
     new MalwareMitigation('Agent Tesla'),
     new IntrusionSetAttackPattern('APT-C-36'),
     new IntrusionSetAttackPattern('Lazarus Group'),
+    new AllMalwareUsedForTechnique('Credential Access'),
+    new AllMalwareUsedForTechnique('Initial Access'),
+    new ShortestPath('APT-C-36', 'Impact'),
+    new ShortestPath('Lazarus Group', 'Credential Access'),
+    new ShortestPath('BlackTech', 'Credential Access'),
+    new AllPaths('BlackTech', 'Credential Access'),
+    new AllPaths('Lazarus Group', 'Credential Access'),
   ]
 }
 
