@@ -1,7 +1,8 @@
 # Neo4j Mitre Poc
 
-This project is a graph database proof of concept using neo4j and mitre. Mitre is complex enough to showcase the benefits
-of a graph datbase.
+This project is a graph database proof of concept using neo4j and mitre.
+
+![Diagram](./docs/sample-image.png)
 
 ## Usage
 
