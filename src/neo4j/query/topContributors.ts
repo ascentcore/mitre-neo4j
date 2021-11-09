@@ -8,7 +8,7 @@ export default class TopContributors extends Query {
   }
 
   get query(): string {
-      return `MATCH (c:Contributor) WITH c, SIZE((c)-[:CONTRIBUTED]->()) as contributionCnt order by contributionCnt desc limit ${this.count} match (c)-[:CONTRIBUTED]->(x) return c`;
+      return `MATCH (c:Contributor) WITH c, SIZE((c)-[:CONTRIBUTED]->()) as contributionCnt order by contributionCnt desc limit ${this.count} match (c)-[:CONTRIBUTED]->(x) return c,x`;
   }
 
 }
