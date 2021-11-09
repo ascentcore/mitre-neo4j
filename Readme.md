@@ -29,4 +29,17 @@ docker run \
 npm run fetch:mitre
 ```
 
-Login at http://localhost:7474 with no authentication
+1. Populate data into the database. This might take a while.
+
+```sh
+npm run populate
+```
+
+1. Login at http://localhost:7474 with no authentication to run queries
+
+Happy hacking :)
+
+## Sample Queries
+
+To run the sample queries, run `npm run query:dry`. This will print all the queries to the console.
+You can then copy them into the UI to visually see the results.
