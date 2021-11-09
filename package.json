@@ -6,7 +6,8 @@
   "scripts": {
     "populate": "tsc && node dist/index.js populate",
     "query:": "tsc && node dist/index.js query",
-    "dry": "tsc && node dist/index.js dryRun"
+    "dry": "tsc && node dist/index.js dryRun",
+    "fetch:mitre": "node scripts/fetch-mitre.js"
   },
   "author": "",
   "license": "ISC",

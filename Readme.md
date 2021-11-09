@@ -1,9 +1,18 @@
 # Neo4j Mitre Poc
 
-This project is a graph database proof of concept using neo4j and mitre. Mitre is complex enough to test out everything
-we need.
+This project is a graph database proof of concept using neo4j and mitre. Mitre is complex enough to showcase the benefits
+of a graph datbase.
 
-Neo4j docker: https://hub.docker.com/_/neo4j
+## Usage
+
+1. Download neo4j docker image from https://hub.docker.com/_/neo4j
+
+```sh
+docker pull neo4j
+```
+
+1. Start the neo4j database without a volume. This means the data will not be persistet after the database is stopped,
+as this is better for development / testing.
 
 ```sh
 docker run \
@@ -12,6 +21,12 @@ docker run \
   --name neo4j \
   --rm \
   neo4j
+```
+
+1. Download the mitre json file
+
+```sh
+npm run fetch:mitre
 ```
 
 Login at http://localhost:7474 with no authentication
