@@ -4,7 +4,6 @@ import EntryPopulator from "../abstract/entryPopulator";
 
 export default class IntrusionSetPopulator extends EntryPopulator<MitreItem> {
   protected addOne(tx: Transaction, obj: MitreItem): Result {
-    console.log(`Creating intrusion set ${obj.name}`)
     return tx.run(
       "CREATE (i:IntrusionSet {id: $id, name: $name, description: $description})",
       { 

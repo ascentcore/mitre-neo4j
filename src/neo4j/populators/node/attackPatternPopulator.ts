@@ -4,7 +4,6 @@ import EntryPopulator from "../abstract/entryPopulator";
 
 export default class AttackPatternPopulator extends EntryPopulator<MitreItem> {
   protected addOne(tx: Transaction, obj: MitreItem): Result {
-    console.log(`Creating attack pattern ${obj.name}`)
     return tx.run(
       "CREATE (a:AttackPattern {id: $id, name: $name, description: $description, detection: $detection})",
       { 

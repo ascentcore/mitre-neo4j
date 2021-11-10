@@ -4,7 +4,6 @@ import EntryPopulator from "../abstract/entryPopulator";
 
 export default class CourseOfActionPopulator extends EntryPopulator<MitreItem> {
   protected addOne(tx: Transaction, obj: MitreItem): Result {
-    console.log(`Creating course of action ${obj.name}`)
     return tx.run(
       "CREATE (c:CourseOfAction {id: $id, name: $name, description: $description})",
       { 
