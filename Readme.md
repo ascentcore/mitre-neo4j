@@ -12,7 +12,7 @@ This project is a graph database proof of concept using neo4j and mitre.
 docker pull neo4j
 ```
 
-1. Start the neo4j database without a volume. This means the data will not be persistet after the database is stopped,
+2. Start the neo4j database without a volume. This means the data will not be persistet after the database is stopped,
 as this is better for development / testing.
 
 ```sh
@@ -24,19 +24,19 @@ docker run \
   neo4j
 ```
 
-1. Download the mitre json file
+3. Download the mitre json file
 
 ```sh
 npm run fetch:mitre
 ```
 
-1. Populate data into the database. This might take a while.
+4. Populate data into the database. This might take a while.
 
 ```sh
 npm run populate
 ```
 
-1. Login at http://localhost:7474 with no authentication to run queries
+5. Login at http://localhost:7474 with no authentication to run queries
 
 Happy hacking :)
 
