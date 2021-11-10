@@ -18,9 +18,11 @@ export type MitreItem = {
   x_mitre_contributors: string[];
   x_mitre_platforms: string[];
   x_mitre_data_sources: string[];
+  x_mitre_data_source_ref: string;
   kill_chain_phases: Stage[];
   x_mitre_defense_bypassed: string[];
   tactic_refs: string[];
+  revoked: boolean;
 };
 
 export type Stage = {

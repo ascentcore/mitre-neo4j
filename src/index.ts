@@ -33,6 +33,8 @@ import TechniqueAttackPatternRelationPopulator from './neo4j/populators/relation
 import AllMalwareUsedForTechnique from './neo4j/query/allMalwareUsedForTechinque';
 import ShortestPath from './neo4j/query/shortestPath';
 import AllPaths from './neo4j/query/allPaths';
+import DataSourceRelationPopulator from './neo4j/populators/relations/dataSourceRelationPopulator';
+import AllMalwareDetectedByDataSource from './neo4j/query/allMalwareDetectedByDataSource';
 
 function populators(): EntryPopulator<any>[] {
   const mitre = new Mitre();
@@ -60,6 +62,8 @@ function populators(): EntryPopulator<any>[] {
     new TechniqueOrderPopulator(mitre.matrixRelations.map(mr => ({ source: mr.srcTactic, destination: mr.destTactic }))),
     new TechniqueAttackPatternRelationPopulator(mitre.techinqueAttackPatternRelations.map(tpr => ({ source: tpr.attackPattern, destination: tpr.techniqueShortName }))),
 
+    new DataSourceRelationPopulator(mitre.dataSourceRelations.map(dsr => ({ source: dsr.itemId, destination: dsr.dataSource }))),
+
     new RelationshipsPopulator(mitre.relationships),
   ]
 }
@@ -71,7 +75,7 @@ function queries(): Query[] {
     new AllMitigationsByCourseOfActionReturningPlatformsQuery('Audit'),
     new TopContributors(3),
     new AllRelationsOfAttackPatternQuery('AS-REP Roasting'),
-    new AllRelatedToAttackPattern('Scripting'),
+    new AllRelatedToAttackPattern('AS-REP Roasting'),
     new AllRelatedToAttackPattern('Scheduled Task'),
     new MalwareMitigation('ADVSTORESHELL'),
     new MalwareMitigation('Agent Tesla'),
@@ -84,6 +88,7 @@ function queries(): Query[] {
     new ShortestPath('BlackTech', 'Credential Access'),
     new AllPaths('BlackTech', 'Credential Access'),
     new AllPaths('Lazarus Group', 'Credential Access'),
+    new AllMalwareDetectedByDataSource('Group'),
   ]
 }
 
