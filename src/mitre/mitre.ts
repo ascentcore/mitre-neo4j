@@ -10,63 +10,63 @@ export default class Mitre {
     }
 
     public get types(): string[] {
-      return [...new Set(this.data.objects.map(obj => obj.type))]
+      return [...new Set(this.nonDeprecatedObjects.map(obj => obj.type))]
     }
 
     public get platforms(): string[] {
-      return [...new Set(this.data.objects.map(obj => obj.x_mitre_platforms).flat().sort())].filter(v => v !== undefined)
+      return [...new Set(this.nonDeprecatedObjects.map(obj => obj.x_mitre_platforms).flat().sort())].filter(v => v !== undefined)
     }
 
     public get contributors(): string[] {
-      return [...new Set(this.data.objects.map(obj => obj.x_mitre_contributors).flat().sort())].filter(v => v !== undefined)
+      return [...new Set(this.nonDeprecatedObjects.map(obj => obj.x_mitre_contributors).flat().sort())].filter(v => v !== undefined)
     }
 
     public get permissions(): string[] {
-      return [...new Set(this.data.objects.map(obj => obj.x_mitre_permissions_required).flat().sort())].filter(v => v !== undefined)
+      return [...new Set(this.nonDeprecatedObjects.map(obj => obj.x_mitre_permissions_required).flat().sort())].filter(v => v !== undefined)
     }
 
     public get techniques(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'x-mitre-tactic')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'x-mitre-tactic')
     }
 
     public get attackPatterns(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'attack-pattern')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'attack-pattern')
     }
 
     public get coursesOfAction(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'course-of-action')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'course-of-action')
     }
 
     public get tools(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'tool')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'tool')
     }
 
     public get dataSources(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'x-mitre-data-source')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'x-mitre-data-source')
     }
 
     public get dataComponents(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'x-mitre-data-component')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'x-mitre-data-component')
     }
 
     public get identities(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'identity')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'identity')
     }
 
     public get intrusionSets(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'intrusion-set')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'intrusion-set')
     }
 
     public get malwares(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'malware')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'malware')
     }
 
     public get relationships(): MitreItem[] {
-      return this.data.objects.filter(obj => obj.type === 'relationship')
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'relationship')
     }
 
     public get externalReferences(): { reference: ExternalReference; itemId: string }[] {
-      return this.data.objects.map(item => {
+      return this.nonDeprecatedObjects.map(item => {
         if (!item.external_references || item.external_references.length === 0) {
           return undefined;
         }
@@ -75,7 +75,7 @@ export default class Mitre {
     }
 
     public get platformRelations(): { platform: string; itemId: string }[] {
-      return this.data.objects.map(item => {
+      return this.nonDeprecatedObjects.map(item => {
         if (!item.x_mitre_platforms) {
           return undefined;
         }
@@ -84,7 +84,7 @@ export default class Mitre {
     }
 
     public get contributorRelations(): { contributor: string; itemId: string }[] {
-      return this.data.objects.map(item => {
+      return this.nonDeprecatedObjects.map(item => {
         if (!item.x_mitre_contributors) {
           return undefined;
         }
@@ -93,7 +93,7 @@ export default class Mitre {
     }
 
     public get permissionRelations(): { permission: string, itemId: string }[] {
-      return this.data.objects.map(item => {
+      return this.nonDeprecatedObjects.map(item => {
         if (!item.x_mitre_permissions_required) {
           return undefined;
         }
@@ -120,7 +120,20 @@ export default class Mitre {
       }).flat().filter(x => x !== undefined);
     }
 
+    public get dataSourceRelations(): { dataSource: string, itemId: string }[] {
+      return this.dataComponents.map(item => {
+        if (!item.x_mitre_data_source_ref) {
+          return undefined;
+        }
+        return ({ dataSource: item.x_mitre_data_source_ref, itemId: item.id });
+      }).flat().filter(x => x !== undefined);
+    }
+
     private get matrix(): MitreItem {
-      return this.data.objects.filter(obj => obj.type === 'x-mitre-matrix')[0]
+      return this.nonDeprecatedObjects.filter(obj => obj.type === 'x-mitre-matrix')[0]
+    }
+
+    private get nonDeprecatedObjects(): MitreItem[] {
+      return this.data.objects.filter(obj => !obj.x_mitre_deprecated && !obj.revoked);
     }
 }

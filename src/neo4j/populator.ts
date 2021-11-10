@@ -1,7 +1,6 @@
 import * as neo4j from 'neo4j-driver';
 import EntryPopulator from './populators/abstract/entryPopulator';
 
-// TODO: Attack Pattern has Data Sources
 export default class Neo4jPopulater {
   private uri: string;
   private driver: neo4j.Driver;
@@ -23,6 +22,7 @@ export default class Neo4jPopulater {
   async populate(): Promise<void> {
     for (const populator of this.nodePopulaters) {
       await populator.populate(this.driver)
+      populator.printCreatedCount()
     }
   }
 

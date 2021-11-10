@@ -3,7 +3,6 @@ import EntryPopulator from "../abstract/entryPopulator";
 
 export default class PermissionPoplator extends EntryPopulator<string> {
     protected addOne(tx: Transaction, obj: string): Promise<QueryResult> {
-      console.log(`Creating permission ${obj}`)
       return tx.run(
         "CREATE (p:Permission {id: $name, name: $name})",
         { 

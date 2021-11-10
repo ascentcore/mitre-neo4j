@@ -4,7 +4,6 @@ import EntryPopulator from "../abstract/entryPopulator";
 
 export default class ToolsPopulator extends EntryPopulator<MitreItem> {
   protected addOne(tx: Transaction, obj: MitreItem): Result {
-    console.log(`Creating tool ${obj.name}`)
     return tx.run(
       "CREATE (t:Tool {id: $id, name: $name, description: $description})",
       { 
