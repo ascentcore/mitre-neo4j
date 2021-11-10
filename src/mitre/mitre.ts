@@ -100,4 +100,27 @@ export default class Mitre {
         return item.x_mitre_permissions_required.map(permission => ({ permission, itemId: item.id }));
       }).flat().filter(x => x !== undefined);
     }
+
+    public get matrixRelations(): { srcTactic: string, destTactic: string }[] {
+      const result = [];
+      for (let id = 0; id !== this.matrix.tactic_refs.length - 1; id ++) {
+        const tactic = this.matrix.tactic_refs[id]
+        const nextTactic = this.matrix.tactic_refs[id + 1]
+        result.push({ srcTactic: tactic, destTactic: nextTactic });
+      }
+      return result;
+    }
+
+    public get techinqueAttackPatternRelations(): { techniqueShortName: string, attackPattern: string }[] {
+      return this.attackPatterns.map(item => {
+        if (!item.kill_chain_phases || item.kill_chain_phases.length === 0) {
+          return undefined;
+        }
+        return item.kill_chain_phases.map(phase => ({ techniqueShortName: phase.phase_name, attackPattern: item.id }));
+      }).flat().filter(x => x !== undefined);
+    }
+
+    private get matrix(): MitreItem {
+      return this.data.objects.filter(obj => obj.type === 'x-mitre-matrix')[0]
+    }
 }

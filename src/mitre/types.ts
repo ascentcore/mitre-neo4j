@@ -20,6 +20,7 @@ export type MitreItem = {
   x_mitre_data_sources: string[];
   kill_chain_phases: Stage[];
   x_mitre_defense_bypassed: string[];
+  tactic_refs: string[];
 };
 
 export type Stage = {
@@ -35,6 +36,7 @@ export type ItemType = 'relationship' |
   'course-of-action' | 
   'x-mitre-data-source' |
   'x-mitre-data-component' |
+  'x-mitre-matrix' |
   'identity' |
   'intrusion-set';
 
