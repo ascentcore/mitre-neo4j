@@ -1,5 +1,6 @@
 import * as neo4j from 'neo4j-driver';
 import Query from './query/query';
+import RecordPrinter from './recordPrinter';
 
 export default class Neo4jQuerier {
   private uri: string;
@@ -43,12 +44,9 @@ export default class Neo4jQuerier {
     return result;
   }
 
-  // TODO: Implement this
   private async runAndPrettyPrintQuery(query: Query): Promise<void> {
     const result = await this.runQuery(query)
-    for (const record of result.records) {
-      console.log(record)
-    }
+    new RecordPrinter(result.records).print();
   }
 
   private async disconnect(): Promise<void> {
