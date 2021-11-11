@@ -10,11 +10,14 @@ export default class RecordPrinter {
     });
   }
 
-  // TODO: Implement path printing
   private printRecord(record: Record): void {
+    const paths = [];
     const nodes = {};
     const relationships = [];
     record.forEach((value) => {
+      if (value.start && value.end && value.segments) {
+        paths.push(value);
+      }
       if (value.start && value.end) {
         relationships.push(value);
       } else {
@@ -22,16 +25,24 @@ export default class RecordPrinter {
       }
     })
 
+    if (paths.length === 1) {
+      this.printPath(paths[0]);
+      return;
+    }
+
     if (relationships.length === 0) {
       this.printNoRelationships(nodes);
+      return;
     }
 
     if (relationships.length === 1) {
       this.printSingleRelationship(nodes, relationships);
+      return;
     }
 
     if (relationships.length > 1) {
       this.printMultipleRelationships(nodes, relationships);
+      return;
     }
   }
 
@@ -59,6 +70,14 @@ export default class RecordPrinter {
         result = `${nodes[r.start]} - ${r.type} -> ${result}`;
       }
     }
+    console.log(result);
+  }
+
+  private printPath(path: any): void {
+    let result = `${path.start.properties.name}`;
+    path.segments.forEach(segment => {
+      result += ` - ${segment.relationship.type} -> ${segment.end.properties.name}`;
+    });
     console.log(result);
   }
 }
